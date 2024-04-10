@@ -1,6 +1,9 @@
 import 'package:eye2sight/controllers/login_controller.dart';
+import 'package:eye2sight/screens/mobile/account/register/register_page.dart';
 import 'package:eye2sight/widgets/app_bars/custom_app_bar.dart';
+import 'package:eye2sight/widgets/app_bars/tital_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'login_form.dart';
 
 class LoginBody extends StatelessWidget {
@@ -16,13 +19,8 @@ class LoginBody extends StatelessWidget {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: CustomAppBar(
-          leadingIconPath: 'images/back.svg',
-          // or any other icon path
-          onLeadingPressed: () {
-            // Navigate back when the back button is pressed
-            Navigator.pop(context);
-          },
+        appBar: const TitalAppBar(
+          title: "",
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -55,12 +53,12 @@ class LoginBody extends StatelessWidget {
                       "New here ?",
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        color: Color(0xFFA4A4A4),
                       ),
                     ),
                     TextButton(
                       onPressed: () {
-                        // Navigate to the registration page
+                        Get.to(() => const RegisterPage());
                       },
                       child: const Text(
                         'Create Account',

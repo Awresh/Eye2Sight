@@ -1,12 +1,18 @@
+import 'package:eye2sight/constants/getstorage_keys_constants.dart';
+import 'package:flutter/material.dart';
 import 'package:eye2sight/screens/mobile/widgets/attendance_chart.dart';
 import 'package:eye2sight/widgets/app_bars/profile_app_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  Home({super.key});
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
+    final token1 = box.read(GetStorageKeys.accessToken);
+    print(token1);
     return Scaffold(
       appBar: ProfileAppBar(
         userName: 'John Doe', // Replace with actual user name
@@ -16,65 +22,47 @@ class Home extends StatelessWidget {
           // Handle notification icon press
         },
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 58,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        backgroundColor: const Color(0xFF75A4FE),
-                      ),
-                      child: const Text(
-                        'Mark Attendance',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 58,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
                   ),
-                  const SizedBox(height: 50),
-                  const Text(
-                    'Attendance Report',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  backgroundColor: const Color(0xFF75A4FE),
+                ),
+                child: const Text(
+                  'Mark Attendance',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
                   ),
-                  // const AttendanceChart()
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            const AttendanceReportWidget()
+          ],
+        ),
       ),
-      floatingActionButton: SizedBox(
-        width: 60, // Adjust size as needed
-        height: 60, // Adjust size as needed
-        child: FloatingActionButton(
-          onPressed: () {
-            // Add your onPressed logic here
-          },
-          backgroundColor: Colors.blue,
-          elevation: 0, // Remove shadow
-          shape: const CircleBorder(),
-          child: Image.asset(
-            'images/floating.png', // Replace with actual image path
-            width: 45, // Adjust size as needed
-            height: 45, // Adjust size as needed
-          ), // Make it circular
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed logic here
+        },
+        backgroundColor: Colors.blue,
+        elevation: 0,
+        shape: const CircleBorder(), // Remove shadow
+        child: Image.asset(
+          'images/floating.png', // Replace with actual image path
+          width: 45, // Adjust size as needed
+          height: 45, // Adjust size as needed
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

@@ -1,11 +1,12 @@
 import 'package:eye2sight/screens/mobile/account/edit_profile/edit_profile_photo.dart';
-import 'package:eye2sight/widgets/app_bars/custom_app_bar.dart';
+import 'package:eye2sight/screens/mobile/account/otp_validation/otp_validation.dart';
+import 'package:eye2sight/widgets/app_bars/tital_app_bar.dart';
+import 'package:eye2sight/widgets/success.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:eye2sight/screens/mobile/account/edit_profile/edit_profile_page.dart';
 import 'package:eye2sight/screens/mobile/account/login/login_page.dart';
 import 'package:eye2sight/screens/mobile/account/register/register_page.dart';
-import 'package:eye2sight/screens/mobile/auth/otp_validation/otp_validation.dart';
 import 'package:eye2sight/screens/mobile/account/forgotPassword/forgot_password.dart';
 import 'package:eye2sight/screens/mobile/account/resetPassword/reset_password.dart';
 import 'package:eye2sight/screens/mobile/onboarding/onbording.dart';
@@ -16,13 +17,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        leadingIconPath: 'images/back.svg',
-        title: "Settings",
-        onLeadingPressed: () {
-          Navigator.pop(context);
-        },
-      ),
+      appBar: const TitalAppBar(title: 'Setting'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -75,6 +70,14 @@ class Setting extends StatelessWidget {
                 Get.to(() => Onboarding());
               },
               child: const Text('Onboarding'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(
+                  () => const Success(),
+                );
+              },
+              child: const Text('Successful'),
             ),
           ],
         ),

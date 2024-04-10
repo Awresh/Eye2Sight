@@ -60,7 +60,7 @@ class EditProfilePhotoPreview extends StatelessWidget {
                   }
                 },
                 child: DottedBorder(
-                  color: Colors.grey,
+                  color: const Color(0xFFA4A4A4),
                   strokeWidth: 1,
                   dashPattern: const [4, 4],
                   child: Container(
@@ -85,7 +85,7 @@ class EditProfilePhotoPreview extends StatelessWidget {
                               'Add Profile Photo',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.grey,
+                                color: Color(0xFFA4A4A4),
                               ),
                             ),
                           ],
@@ -100,7 +100,7 @@ class EditProfilePhotoPreview extends StatelessWidget {
                 "Take your front-facing photo. Upload at least 3 photos",
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey,
+                  color: Color(0xFFA4A4A4),
                 ),
               ),
               const SizedBox(height: 30),

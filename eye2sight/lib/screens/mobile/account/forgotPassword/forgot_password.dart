@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  const ForgotPasswordPage({Key? key});
+  const ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 const Text('We’ll send you a new password to your email',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey,
+                      color: Color(0xFFA4A4A4),
                     )),
                 const SizedBox(height: 20),
                 // Email TextField
@@ -57,7 +57,6 @@ class ForgotPasswordPage extends StatelessWidget {
                       labelText: 'Email Address',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
-                  
                       ),
                     ),
                   ),
@@ -89,14 +88,14 @@ class ForgotPasswordPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                // Create Account link
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Text("Remembered your password?",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey,
+                          color: Color(0xFFA4A4A4),
                         )),
                     TextButton(
                       onPressed: () {

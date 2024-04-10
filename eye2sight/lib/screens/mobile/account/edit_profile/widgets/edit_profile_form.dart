@@ -57,7 +57,7 @@ class EditProfileForm extends StatelessWidget {
                   );
                 },
                 child: Obx(() => DottedBorder(
-                      color: Colors.grey,
+                      color: const Color(0xFFA4A4A4),
                       strokeWidth: 1,
                       dashPattern: const [4, 4],
                       child: Container(
@@ -90,7 +90,7 @@ class EditProfileForm extends StatelessWidget {
                                     'Add Profile Photo',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Colors.grey,
+                                      color: Color(0xFFA4A4A4),
                                     ),
                                   ),
                                 ],

@@ -1,6 +1,11 @@
+import 'package:eye2sight/constants/getstorage_keys_constants.dart';
+import 'package:eye2sight/controllers/conectivity_controller.dart';
+import 'package:eye2sight/screens/mobile/account/login/login_page.dart';
 import 'package:eye2sight/widgets/bottom_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,9 +14,46 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    Get.put(ConnectivityController());
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavBar(), // Use BottomNavBar as the home page
+      home: SplashScreen(), // Use SplashScreen as the initial route
     );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  final box = GetStorage(); // Access local storage
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      checkToken(); // Check token after the first frame is built
+    });
+  }
+
+  Future<void> checkToken() async {
+    final token = box.read(GetStorageKeys.accessToken);
+    print(token); // Read token from local storage
+    if (token != null && !JwtDecoder.isExpired(token)) {
+      // Token exists and is not expired
+      Get.offAll(() => BottomNavBar()); // Navigate to BottomNavBar
+    } else {
+      // Token doesn't exist or is expired
+      Get.offAll(() => const LoginPage()); // Navigate to LoginPage
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
