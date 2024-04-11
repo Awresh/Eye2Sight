@@ -1,10 +1,14 @@
+import 'package:eye2sight/constants/getstorage_keys_constants.dart';
 import 'package:eye2sight/constants/onboarding_data.dart';
+import 'package:eye2sight/screens/mobile/account/login/login_page.dart';
 import 'package:eye2sight/widgets/bottom_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 // Import statements
 
 class OnboardingController extends GetxController {
+  final box = GetStorage();
   final PageController controller = PageController(initialPage: 0);
   var currentIndex = 0.obs;
 
@@ -12,10 +16,11 @@ class OnboardingController extends GetxController {
     currentIndex.value = index;
   }
 
-  void finishOnboarding(BuildContext context) {
+  Future<void> finishOnboarding(BuildContext context) async {
     if (currentIndex.value == contents.length - 1) {
-      // Get.offAll(() => LoginPage());
-      Get.to(() => BottomNavBar());
+      await box.write(GetStorageKeys.onboardingIsCompleted, 1);
+      Get.offAll(() => const LoginPage());
+      // Get.to(() => BottomNavBar());
     } else {
       controller.nextPage(
         duration: const Duration(milliseconds: 300),

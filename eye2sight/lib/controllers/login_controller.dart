@@ -43,7 +43,8 @@ class LoginController extends GetxController {
       if (response != null && response.statusCode == 200) {
         final responseData = response.data;
         final token = responseData['result']['token'];
-        box.write(GetStorageKeys.accessToken, token);
+        // Store token persistently using await
+        await box.write(GetStorageKeys.accessToken, token);
 
         print('Login successful');
         getx.Get.offAll(() => BottomNavBar());

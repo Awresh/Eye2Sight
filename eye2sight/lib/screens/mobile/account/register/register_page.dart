@@ -1,4 +1,3 @@
-import 'package:eye2sight/screens/mobile/account/edit_profile/widgets/edit_profile_form.dart';
 import 'package:eye2sight/screens/mobile/account/register/widgets/register_form.dart';
 
 import 'package:eye2sight/widgets/app_bars/custom_app_bar.dart';

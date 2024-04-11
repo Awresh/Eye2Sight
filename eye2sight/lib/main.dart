@@ -1,13 +1,19 @@
 import 'package:eye2sight/constants/getstorage_keys_constants.dart';
 import 'package:eye2sight/controllers/conectivity_controller.dart';
 import 'package:eye2sight/screens/mobile/account/login/login_page.dart';
+import 'package:eye2sight/screens/mobile/onboarding/onbording.dart';
 import 'package:eye2sight/widgets/bottom_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure WidgetsBinding is initialized
+  await GetStorage.init(); // Initialize GetStorage
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -41,14 +47,23 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkToken() async {
+    await GetStorage.init(); // Ensure GetStorage is initialized
     final token = box.read(GetStorageKeys.accessToken);
+    final onboardingIsCompleted =
+        box.read(GetStorageKeys.onboardingIsCompleted);
     print(token); // Read token from local storage
     if (token != null && !JwtDecoder.isExpired(token)) {
       // Token exists and is not expired
+
       Get.offAll(() => BottomNavBar()); // Navigate to BottomNavBar
     } else {
+      if (onboardingIsCompleted != null && onboardingIsCompleted == 1) {
+        Get.offAll(() => const LoginPage());
+      } else {
+        Get.offAll(() => Onboarding());
+      }
       // Token doesn't exist or is expired
-      Get.offAll(() => const LoginPage()); // Navigate to LoginPage
+      // Navigate to LoginPage
     }
   }
 

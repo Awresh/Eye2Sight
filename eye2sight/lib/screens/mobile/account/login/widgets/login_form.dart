@@ -10,14 +10,13 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Form(
-      key: _formKey,
+      key: formKey,
       child: Column(
         children: [
           SizedBox(
-            height: 60,
             child: TextFormField(
               onChanged: (value) => controller.email.value = value,
               validator: (value) {
@@ -38,7 +37,6 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           SizedBox(
-            height: 60,
             child: Obx(
               () => TextFormField(
                 onChanged: (value) => controller.password.value = value,
@@ -103,7 +101,7 @@ class LoginForm extends StatelessWidget {
             height: 58,
             child: ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (formKey.currentState!.validate()) {
                   // Validation passed, proceed with login
                   controller.login();
                 }

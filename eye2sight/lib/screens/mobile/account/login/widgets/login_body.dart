@@ -1,6 +1,5 @@
 import 'package:eye2sight/controllers/login_controller.dart';
 import 'package:eye2sight/screens/mobile/account/register/register_page.dart';
-import 'package:eye2sight/widgets/app_bars/custom_app_bar.dart';
 import 'package:eye2sight/widgets/app_bars/tital_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

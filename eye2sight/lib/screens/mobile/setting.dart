@@ -10,10 +10,11 @@ import 'package:eye2sight/screens/mobile/account/register/register_page.dart';
 import 'package:eye2sight/screens/mobile/account/forgotPassword/forgot_password.dart';
 import 'package:eye2sight/screens/mobile/account/resetPassword/reset_password.dart';
 import 'package:eye2sight/screens/mobile/onboarding/onbording.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Setting extends StatelessWidget {
-  const Setting({super.key});
-
+  Setting({super.key});
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +38,10 @@ class Setting extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.to(() => const LoginPage());
+                box.remove('accessToken'); // Remove the token from the box
+                Get.offAll(() => const LoginPage());
               },
-              child: const Text('Login'),
+              child: const Text('Log Out'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -55,7 +57,7 @@ class Setting extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.to(() => const RegisterPage());
+                Get.to(() => RegisterPage());
               },
               child: const Text('Register'),
             ),

@@ -21,10 +21,10 @@ class BottomNavBar extends StatelessWidget {
       body: Obx(() => IndexedStack(
             index: controller.currentIndex.value,
             children: [
-              Home(),
+              const Home(),
               const Chat(),
               const Report(),
-              const Setting(),
+              Setting(),
             ],
           )),
       bottomNavigationBar: Obx(() {
