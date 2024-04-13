@@ -17,8 +17,6 @@ class ConnectivityController extends GetxController {
         if (isInternetAvailable.isFalse) {
           CustomSnackBar.showSnackBar(CustomSnackBar.success,
               'Connection restored', CustomSnackBar.success);
-          print(
-              'Connection restored'); // Print message when connection is restored
         }
         isInternetAvailable.value = true;
       }

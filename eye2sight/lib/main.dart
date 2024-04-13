@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final token = box.read(GetStorageKeys.accessToken);
     final onboardingIsCompleted =
         box.read(GetStorageKeys.onboardingIsCompleted);
-    print(token); // Read token from local storage
+    // Read token from local storage
     if (token != null && !JwtDecoder.isExpired(token)) {
       // Token exists and is not expired
 

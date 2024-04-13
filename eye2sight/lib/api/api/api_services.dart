@@ -11,8 +11,7 @@ import 'package:get_storage/get_storage.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final Duration timeOut =
-      const Duration(seconds: 60); // Corrected the variable name
+  final Duration timeOut = const Duration(seconds: 60);
   final box = GetStorage();
   Future<Response?> post(
     String path,
@@ -65,7 +64,6 @@ class ApiService {
       final dioError = error;
       if (dioError.response != null) {
         // Handle DioError with a response (e.g., server returned an error)
-        // final errorMessage = dioError.response!.data.toString();
         CustomSnackBar.showSnackBar(CustomSnackBar.error,
             'An unexpected error occurred.', CustomSnackBar.error);
       } else {

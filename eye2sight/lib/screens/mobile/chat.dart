@@ -20,7 +20,7 @@ class Chat extends StatelessWidget {
         },
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -49,7 +49,7 @@ class Chat extends StatelessWidget {
               "Attendance Report",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Hero(
               tag: heroTag, // Unique hero tag
               child: Chart.withSampleData(),

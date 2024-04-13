@@ -3,32 +3,40 @@ import 'package:eye2sight/screens/mobile/account/forgotPassword/forgot_password.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginForm extends StatelessWidget {
-  final LoginController controller;
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
-  const LoginForm({super.key, required this.controller});
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final LoginController _controller = LoginController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     return Form(
-      key: formKey,
+      key: _formKey,
       child: Column(
         children: [
           SizedBox(
             child: TextFormField(
-              onChanged: (value) => controller.email.value = value,
+              onChanged: (value) => setState(() {
+                _controller.email.value = value;
+              }),
               validator: (value) {
-                if (value!.isEmpty) {
+                if (value == null || value.trim().isEmpty) {
                   return 'Email is required';
-                } else if (!GetUtils.isEmail(value)) {
-                  return 'Please enter a valid email address';
+                }
+                if (!GetUtils.isEmail(value.trim())) {
+                  return 'Enter a valid email address';
                 }
                 return null;
               },
               decoration: InputDecoration(
-                labelText: 'Email',
+                labelText: 'Email Address',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
@@ -39,11 +47,14 @@ class LoginForm extends StatelessWidget {
           SizedBox(
             child: Obx(
               () => TextFormField(
-                onChanged: (value) => controller.password.value = value,
+                onChanged: (value) => setState(() {
+                  _controller.password.value = value;
+                }),
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value == null || value.trim().isEmpty) {
                     return 'Password is required';
-                  } else if (value.length < 6) {
+                  }
+                  if (value.trim().length < 6) {
                     return 'Password must be at least 6 characters long';
                   }
                   return null;
@@ -54,13 +65,13 @@ class LoginForm extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18),
                   ),
                   suffixIcon: GestureDetector(
-                    onTap: () => controller.togglePasswordVisibility(),
-                    child: Icon(controller.passwordVisible.value
+                    onTap: () => _controller.togglePasswordVisibility(),
+                    child: Icon(_controller.passwordVisible.value
                         ? Icons.visibility
                         : Icons.visibility_off),
                   ),
                 ),
-                obscureText: !controller.passwordVisible.value,
+                obscureText: !_controller.passwordVisible.value,
               ),
             ),
           ),
@@ -71,10 +82,11 @@ class LoginForm extends StatelessWidget {
               Row(
                 children: [
                   Obx(() => Checkbox(
-                        value: controller.rememberMe.value,
+                        value: _controller.rememberMe.value,
                         activeColor: const Color(0xff75A4FE),
-                        onChanged: (value) =>
-                            controller.rememberMe.value = value!,
+                        onChanged: (value) => setState(() {
+                          _controller.rememberMe.value = value!;
+                        }),
                       )),
                   const Text('Remember me',
                       style: TextStyle(
@@ -100,29 +112,40 @@ class LoginForm extends StatelessWidget {
             width: double.infinity,
             height: 58,
             child: ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  // Validation passed, proceed with login
-                  controller.login();
-                }
-              },
+              onPressed: _isLoading ? null : () => _handleLogin(),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
                 backgroundColor: const Color(0xFF75A4FE),
               ),
-              child: const Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
+              child: _isLoading
+                  ? const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      await _controller.login();
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }

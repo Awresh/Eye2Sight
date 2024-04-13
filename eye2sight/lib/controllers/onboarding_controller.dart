@@ -1,11 +1,9 @@
 import 'package:eye2sight/constants/getstorage_keys_constants.dart';
 import 'package:eye2sight/constants/onboarding_data.dart';
 import 'package:eye2sight/screens/mobile/account/login/login_page.dart';
-import 'package:eye2sight/widgets/bottom_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-// Import statements
 
 class OnboardingController extends GetxController {
   final box = GetStorage();

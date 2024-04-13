@@ -10,16 +10,23 @@ class TitalAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false, // Disable default back button
-      title: Text(
-        title ?? "",
-        style: const TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          automaticallyImplyLeading: false, // Disable default back button
+          title: Text(
+            title ?? "",
+            style: const TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          pinned:
+              true, // Keep the app bar pinned to the top // Set the desired background color
+          expandedHeight: kToolbarHeight,
         ),
-      ),
-      centerTitle: true,
+      ],
     );
   }
 

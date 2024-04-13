@@ -3,15 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart'; // Updated import statement
 
-class RegisterForm extends StatelessWidget {
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
+
+  @override
+  State<RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<RegisterForm> {
   final RegisterController controller = RegisterController();
 
-  RegisterForm({super.key});
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: controller.formKey,
+        key: _formKey,
         child: GestureDetector(
           onTap: () {
             // Dismiss the keyboard when tapping outside of text fields
@@ -277,10 +286,7 @@ class RegisterForm extends StatelessWidget {
                     height: 58,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (controller.formKey.currentState!.validate()) {
-                          // If all fields are valid, call register function
-                          controller.register();
-                        }
+                        _handleRegister();
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -288,13 +294,18 @@ class RegisterForm extends StatelessWidget {
                         ),
                         backgroundColor: const Color(0xFF75A4FE),
                       ),
-                      child: const Text(
-                        'Create Account',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            )
+                          : const Text(
+                              'Create Account',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                     ),
                   ),
                 ],
@@ -302,5 +313,17 @@ class RegisterForm extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  void _handleRegister() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true; // Set loading to true before registration
+      });
+      await controller.register();
+      setState(() {
+        _isLoading = false; // Set loading to false after registration
+      });
+    }
   }
 }

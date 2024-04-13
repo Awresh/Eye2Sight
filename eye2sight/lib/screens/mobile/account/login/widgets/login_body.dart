@@ -1,4 +1,3 @@
-import 'package:eye2sight/controllers/login_controller.dart';
 import 'package:eye2sight/screens/mobile/account/register/register_page.dart';
 import 'package:eye2sight/widgets/app_bars/tital_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +5,7 @@ import 'package:get/get.dart';
 import 'login_form.dart';
 
 class LoginBody extends StatelessWidget {
-  final LoginController loginController = LoginController();
-
-  LoginBody({super.key});
+  const LoginBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +38,8 @@ class LoginBody extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 20),
-                LoginForm(controller: loginController),
+                const SizedBox(height: 10),
+                const LoginForm(),
                 const SizedBox(height: 30),
                 // Create Account link
                 Row(
